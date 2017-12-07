@@ -1,0 +1,38 @@
+unreleased
+==========
+
+Features
+--------
+
+- Added an execution policy hook to the request pipeline. An execution
+  policy has the ability to control creation and execution of the request
+  objects before they enter rest of the pipeline. This means for a given
+  request that the policy may create more than one request for retry
+  purposes. See https://github.com/Pylons/pyramid/pull/2964
+
+Bug Fixes
+---------
+
+- HTTPException's accepts a detail kwarg that may be used to pass additional
+  details to the exception. You may now pass objects so long as they have a
+  valid __str__ method. See https://github.com/Pylons/pyramid/pull/2951
+
+- Fix a reference cycle causing memory leaks in which the registry
+  would keep a ``Configurator`` instance alive even after the configurator
+  was discarded. Another fix was also added for the ``global_registries``
+  object in which the registry was stored in a closure preventing it from
+  being deallocated. See https://github.com/Pylons/pyramid/pull/2967
+
+- Fix a bug directly invoking ``pyramid.scripts.pserve.main`` with the
+  ``--reload`` option in which ``sys.argv`` is always used in the subprocess
+  instead of the supplied ``argv``.
+  See https://github.com/Pylons/pyramid/pull/2962
+
+Deprecations
+------------
+
+Backward Incompatibilities
+--------------------------
+
+Documentation Changes
+---------------------
